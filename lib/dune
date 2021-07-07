@@ -1,0 +1,7 @@
+(library
+ (name randoml)
+ (public_name randoml)
+ (inline_tests)
+ (libraries bignum.bigint rand hexstring)
+ (preprocess
+  (pps ppx_inline_test)))

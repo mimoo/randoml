@@ -1,0 +1,23 @@
+; don't copy target to _build
+
+(dirs :standard \ "target")
+
+; creates the rust library if any rust file changes
+
+(rule
+ (target librand.a)
+ (deps
+  (source_tree rand))
+ (action
+  (progn
+   (run cargo build --release)
+   (run cp target/release/librand.a .))))
+
+(library
+ (name rand)
+ (public_name randoml.rand)
+ (libraries core_kernel)
+ (foreign_archives rand)
+ (inline_tests)
+ (preprocess
+  (pps ppx_jane ppx_inline_test)))

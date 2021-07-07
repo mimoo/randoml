@@ -1,0 +1,11 @@
+[package]
+name = "rand"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+rand = { version = "0.8.4", features = ["getrandom"] }
+ocaml = "0.22.0"
