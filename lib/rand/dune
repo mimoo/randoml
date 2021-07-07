@@ -5,19 +5,21 @@
 ; creates the rust library if any rust file changes
 
 (rule
- (target librand.a)
+ (targets librand.a dllrand.so)
  (deps
-  (source_tree rand))
+  (source_tree .))
  (action
   (progn
    (run cargo build --release)
+   (run
+    sh
+    -c
+    "mv target/release/librand.so ./dllrand.so 2> /dev/null || mv target/release/librand.dylib ./dllrand.so 2> /dev/null || touch dllrand.so")
    (run cp target/release/librand.a .))))
+
+; the FFI OCaml lib
 
 (library
  (name rand)
  (public_name randoml.rand)
- (libraries core_kernel)
- (foreign_archives rand)
- (inline_tests)
- (preprocess
-  (pps ppx_jane ppx_inline_test)))
+ (foreign_archives rand))
