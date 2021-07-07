@@ -4,8 +4,6 @@ let rand_bytes len =
   let buf = Bytes.create len in
   rand_fill buf
 
-let rand_bigint _x = failwith "not implemented"
-
 let rand_int32 _ = Rand.rand_int32 ()
 
 let rand_int64 _ = Rand.rand_int64 ()
@@ -14,7 +12,7 @@ let rand_int32_range = Rand.rand_int32_range
 
 let rand_int64_range = Rand.rand_int64_range
 
-let rand_bigint lower upper = failwith "not implemented"
+let rand_bigint _lower _upper = failwith "not implemented"
 
 (* tests *)
 

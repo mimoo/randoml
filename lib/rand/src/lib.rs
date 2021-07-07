@@ -17,13 +17,13 @@ pub fn rand_int64() -> i64 {
 }
 
 #[ocaml::func]
-pub fn rand_int32_range(lower: i32, upper: i32) {
+pub fn rand_int32_range(lower: i32, upper: i32) -> i32 {
     let between = Uniform::from(lower..upper);
     between.sample(&mut OsRng)
 }
 
 #[ocaml::func]
-pub fn rand_int64_range(lower: i64, upper: i64) {
+pub fn rand_int64_range(lower: i64, upper: i64) -> i64 {
     let between = Uniform::from(lower..upper);
     between.sample(&mut OsRng)
 }
