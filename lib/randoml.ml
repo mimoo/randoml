@@ -1,13 +1,31 @@
 open Core_kernel
 
+(** some internal helper functions *)
 module Utils = struct
-  (* clear useless bits in a random value (assuming little-endian) *)
+  (** converts [bytes] encoded in little-endian into a [Bigint.t] *)
+  let bigint_of_bytes (bytearray : bytes) =
+    let f offset acc byte =
+      let num = Bigint.of_int @@ int_of_char byte in
+      let offset = offset * 8 in
+      let num = Bigint.(num lsl offset) in
+      Bigint.(acc + num)
+    in
+    Bytes.foldi bytearray ~init:Bigint.zero ~f
+
+  (** return number of bits in number *)
+  let rec num_bits ?(num = 0) (x : Bigint.t) =
+    if Bigint.(x = zero) then num
+    else num_bits ~num:(num + 1) (Bigint.shift_right x 1)
+
+  (** clear useless bits in a random value (assuming little-endian) *)
   let clear_bits buf to_keep =
     let mask = (1 lsl to_keep) - 1 in
     let last_idx = Bytes.length buf - 1 in
     let last_byte = Bytes.get buf last_idx |> int_of_char in
     let last_byte = last_byte land mask |> char_of_int in
     Bytes.set buf last_idx last_byte
+
+  (* tests *)
 
   let%test_unit "clear_bits" =
     let buf = Bytes.of_char_list [ '\xff'; '\xff' ] in
@@ -31,6 +49,8 @@ module Utils = struct
     assert (Char.(Bytes.get buf 1 = '\x00'))
 end
 
+(* implementations *)
+
 let rand_fill (buf : bytes) = Rand.rand_bytes buf
 
 let rand_bytes len =
@@ -46,34 +66,17 @@ let rand_int32_range = Rand.rand_int32_range
 
 let rand_int64_range = Rand.rand_int64_range
 
-(** converts [bytes] encoded in little-endian into a [Bigint.t] *)
-let bigint_of_bytes (bytearray : bytes) =
-  let f offset acc byte =
-    let num = Bigint.of_int @@ int_of_char byte in
-    let offset = offset * 8 in
-    let num = Bigint.(num lsl offset) in
-    Bigint.(acc + num)
-  in
-  Bytes.foldi bytearray ~init:Bigint.zero ~f
-
 let rand_bigint (upperbound : Bigint.t) =
-  (* return number of bits in number *)
-  let rec num_bits ?(num = 0) (x : Bigint.t) =
-    if Bigint.(x = zero) then num
-    else num_bits ~num:(num + 1) (Bigint.shift_right x 1)
-  in
   (* generated random values until it's smaller than the upperbound *)
   let rec loop ~to_keep ~bytes ~upperbound =
     let buf = rand_bytes bytes in
-    printf "1: %s\n%!" (Hexstring.encode buf);
     Utils.clear_bits buf to_keep;
-    printf "2: %s\n%!" (Hexstring.encode buf);
-    let num = bigint_of_bytes buf in
+    let num = Utils.bigint_of_bytes buf in
     if Bigint.(num < upperbound) then num else loop ~to_keep ~bytes ~upperbound
   in
   if Bigint.(upperbound < Bigint.one) then Bigint.zero
   else
-    let bits = num_bits upperbound in
+    let bits = Utils.num_bits upperbound in
     let to_keep = bits mod 8 in
     let to_keep = if to_keep = 0 then 8 else to_keep in
     let bytes = (bits + 7) / 8 in

@@ -2,6 +2,6 @@
  (name randoml)
  (public_name randoml)
  (inline_tests)
- (libraries core_kernel bignum.bigint rand hexstring)
+ (libraries core_kernel bignum.bigint rand)
  (preprocess
   (pps ppx_inline_test)))
