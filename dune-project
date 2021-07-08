@@ -1,5 +1,7 @@
 (lang dune 2.8)
 
+(name randoml)
+
 (generate_opam_files true)
 
 (source
