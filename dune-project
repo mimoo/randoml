@@ -17,7 +17,14 @@
  (description
   "A library relying on Rust rand to generate random numbers. The random numbers are cryptographically secure.")
  (depends
-  (ppx_inline_test :with-test)
+  (bignum
+   (>= v0.14.0))
+  (dune
+   (>= 2.8.0))
+  (ppx_inline_test
+   (and
+    :with-test
+    (>= v0.14.1)))
   (core_kernel
    (> v0.14.0))
   (bignum.bigint

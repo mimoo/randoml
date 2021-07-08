@@ -9,13 +9,11 @@ license: "ISC"
 homepage: "https://github.com/mimoo/randoml"
 bug-reports: "https://github.com/mimoo/randoml/issues"
 depends: [
-  "ppx_inline_test" {with-test}
-  "dune" {>= "2.8" & > "1.5"}
-  "foo" {dev & > "1.5" & < "2.0"}
-  "uri" {>= "1.9.0"}
-  "uri" {< "2.0.0"}
-  "fieldslib" {> "v0.12"}
-  "fieldslib" {< "v0.13"}
+  "bignum" {>= "v0.14.0"}
+  "dune" {>= "2.8" & >= "2.8.0"}
+  "ppx_inline_test" {with-test & >= "v0.14.1"}
+  "core_kernel" {> "v0.14.0"}
+  "bignum.bigint" {> "v0.14.0"}
   "odoc" {with-doc}
 ]
 build: [
