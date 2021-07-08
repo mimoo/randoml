@@ -28,6 +28,4 @@
     :with-test
     (>= v0.14.1)))
   (core_kernel
-   (> v0.14.0))
-  (bignum.bigint
    (> v0.14.0))))
