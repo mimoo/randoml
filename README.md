@@ -60,3 +60,8 @@ Bigint.of_string
 in
 let x = rand_bigint upperbound
 ```
+
+## How to produce new releases of this library
+
+As opam installs dependencies in a sandbox, rust dependencies need to be vendored via `cargo vendor`.
+Thus, this command needs to be executed every time there's a change in the Cargo.lock file.
