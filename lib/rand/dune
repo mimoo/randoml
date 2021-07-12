@@ -1,6 +1,6 @@
 ; don't copy target to _build
 
-(dirs :standard \ "target")
+(dirs :standard \ "target" "vendor")
 
 ; creates the rust library if any rust file changes
 
