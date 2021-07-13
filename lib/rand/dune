@@ -17,7 +17,7 @@
    (run mkdir -p .cargo)
    (run cp cargo-config.toml .cargo/config.toml)
    ; ignore the Cargo.lock, for some reason there's issues with this
-   (run rm Cargo.lock)
+   (run rm -f Cargo.lock)
    ; cargo build
    (run cargo build --release)
    ; extract the produced static library
