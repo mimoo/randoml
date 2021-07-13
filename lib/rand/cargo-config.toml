@@ -1,3 +1,6 @@
+# this file will get moved to the correct place (`.cargo/config.toml`) 
+# by the dune action. This is to circumvent some dumb limitation of dune
+
 [build]
 rustflags = ["-C", "link-args=-Wl,-undefined,dynamic_lookup"]
 

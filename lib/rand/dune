@@ -12,7 +12,14 @@
   (source_tree vendor))
  (action
   (progn
+   ; this is to circumvent a dumb limitation of dune
+   ; which prevents us from copying any .folder to _build
+   (run mkdir -p .cargo)
+   (run cp cargo-config.toml .cargo/config.toml)
+   ; cargo build
    (run cargo build --release)
+   ; extract the produced static library
+   ; the .so fluff is here to remove errors that we sometimes get from dune
    (run
     sh
     -c
