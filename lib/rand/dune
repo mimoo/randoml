@@ -1,13 +1,15 @@
-; don't copy target to _build
+; don't copy `target/` to `_build/`
+; forbid dune from building things in `vendor/`
 
-(dirs :standard \ "target")
+(data_only_dirs "target" "vendor")
 
 ; creates the rust library if any rust file changes
 
 (rule
  (targets librand.a dllrand.so)
  (deps
-  (source_tree .))
+  (source_tree .)
+  (source_tree vendor))
  (action
   (progn
    (run cargo build --release)
