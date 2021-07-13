@@ -1,0 +1,45 @@
+name: check build
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+jobs:
+  run_dune_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v2
+
+      - name: Set up ocaml
+        uses: avsm/setup-ocaml@v1
+        with:
+          ocaml-version: 4.12.0
+
+      - name: Checks
+        run: |
+          set -x
+          eval $(opam env)
+
+          # make sure we can run opam pin
+          opam pin add .
+
+          # make sure tests pass
+          dune runtest
+
+          # make sure opam package file is valid
+          opam lint
+          opam-dune-lint
+
+      - name: Format
+        run: |
+          set -x
+          eval $(opam env)
+
+          # make sure the project is well-formatted
+          dune build @fmt
+          
+          
