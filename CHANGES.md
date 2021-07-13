@@ -1,3 +1,6 @@
+## 0.1.3 (2021-07-13)
+
+Fix vendoring of rust dependencies for release (bis)
 ## 0.1.2 (2021-07-13)
 
 Fix vendoring of rust dependencies for release
