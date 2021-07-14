@@ -1,5 +1,4 @@
-; don't copy `target/` to `_build/`
-; forbid dune from building things in `vendor/`
+; forbid dune from building things in `target/` and `vendor/`
 
 (data_only_dirs "target" "vendor")
 
@@ -16,8 +15,6 @@
    ; which prevents us from copying any .folder to _build
    (run mkdir -p .cargo)
    (run cp cargo-config.toml .cargo/config.toml)
-   ; ignore the Cargo.lock, for some reason there's issues with this
-   (run rm -f Cargo.lock)
    ; cargo build
    (run cargo build --release)
    ; extract the produced static library
