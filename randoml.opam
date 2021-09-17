@@ -12,7 +12,7 @@ depends: [
   "conf-rust-2018"
   "bignum" {>= "v0.14.0"}
   "dune" {>= "2.8.0"}
-  "ppx_inline_test" {with-test & >= "v0.14.1"}
+  "ppx_inline_test" {>= "v0.14.1"}
   "core_kernel" {> "v0.14.0"}
   "odoc" {with-doc}
 ]
