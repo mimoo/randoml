@@ -1,3 +1,7 @@
+## 0.1.5 (2021-09-20)
+
+Build fix for release in opam
+
 ## 0.1.4 (2021-07-14)
 
 Fix vendoring of rust dependencies for release (bis) (bis)
@@ -5,6 +9,7 @@ Fix vendoring of rust dependencies for release (bis) (bis)
 ## 0.1.3 (2021-07-13)
 
 Fix vendoring of rust dependencies for release (bis)
+
 ## 0.1.2 (2021-07-13)
 
 Fix vendoring of rust dependencies for release
