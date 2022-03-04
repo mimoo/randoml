@@ -10,8 +10,18 @@ You'll need Rust: https://rustup.rs/
 
 Then:
 
-```
+```console
 $ opam install randoml
+```
+
+Or if you have esy:
+
+```diff
+{
+    "dependencies": {
++        "@opam/randoml": "*"
+    },
+}
 ```
 
 ## Usage
