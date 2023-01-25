@@ -16,7 +16,7 @@
    (run mkdir -p .cargo)
    (run cp cargo-config.toml .cargo/config.toml)
    ; cargo build
-   (run cargo build --release --offline)
+   (run cargo build --release --offline --locked)
    ; extract the produced static library
    ; the .so fluff is here to remove errors that we sometimes get from dune
    (run
